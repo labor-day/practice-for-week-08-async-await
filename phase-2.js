@@ -3,7 +3,7 @@ function stretch(timeLeft) {
     if (timeLeft < 1000) {
 
       // if we dont have enough time to complete the action
-      // reject the promise with the reason 
+      // reject the promise with the reason
       reject('you dont have enough time to stretch')
 
     } else {
@@ -65,12 +65,28 @@ function workout(totalTime) {
     .catch(err => console.log('Error: ', err));
 }
 
+async function workout(totalTime) {
+  try {
+
+    let afterStretching = await stretch(totalTime);
+    let afterRunning = await runOnTreadmill(afterStretching);
+    let afterLifting = await liftWeights(afterRunning);
+
+    console.log(`done working out with ${afterLifting} remaining`);
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 /* ============================ TEST YOUR CODE ============================
 
 Comment in each invocation of your workout function below and run the file
 (node phase-2.js) to see if you get the expected output.
 */
+
+workout(4000);
 
 
 // workout(500);
